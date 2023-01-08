@@ -12,6 +12,7 @@ import logging
 import os
 
 from config import appname
+import threading
 
 
 """
@@ -54,6 +55,33 @@ if not logger.hasHandlers():
     logger_channel.setFormatter(logger_formatter)
     logger.addHandler(logger_channel)
 
+class postJson(threading.Thread):
+    def __init__(self, url, payload):
+        threading.Thread.__init__(self)
+        self.url = url
+        self.payload = payload
+
+    def run(self):
+        logger.debug("emitter.post")
+
+        r = requests.post(self.url, data=json.dumps(self.payload, ensure_ascii=False).encode('utf8'),
+                          headers={"content-type": "application/json"})
+        if not r.status_code == requests.codes.ok:
+            logger.error(json.dumps(self.payload))
+            headers = r.headers
+            contentType = str(headers['content-type'])
+            if 'json' in contentType:
+                logger.error(json.dumps(r.content))
+            else:
+                logger.error(r.content)
+            logger.error(r.status_code)
+        else:
+            logger.debug("emitter.post success")
+            logger.info(f"{self.url}?id={r.json().get('id')}")
+
+
+def post(url, payload):
+    postJson(url, payload).start()
 
 class cycle():
 
@@ -172,13 +200,8 @@ def submit_event(event=None):
             "isBeta": this.is_beta,
             "clientVersion": "EDMC-Ruins 1.0.0"
         }
-        headers={"content-type": "application/json"}
-        r = requests.post(url, data=json.dumps(payload, ensure_ascii=False).encode('utf8'), headers=headers)
-        if not r.status_code == requests.codes.ok:
-            logger.error(r.status_code)
-            logger.error(r.text)
-        else:
-            logger.info(f"{url}?id={r.json().get('id')}")
+    
+        post(url,payload)
             
     destroy()
 
