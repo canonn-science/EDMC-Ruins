@@ -1,8 +1,6 @@
 # EDMC-Ruins
 A plugin to report ruin types
 
-THIS IS NOW OBSOLETE. WE WILL BE UPDATING IT TO SEND THE DATA ELSEWHERE
-
 # How it works
 
 When you approach one of the Guardian Ancient Ruins site the user interface will appear.
@@ -17,7 +15,7 @@ The site type will be displayed.
 Click submit to send us the data.
 Click dismiss ro remove the UI without sending
 
-The data is recorded in the CAPI database and after batch processing will appea in the [Ruins Tool ](https://ruins.canonn.tech/#)
+The record will be recorded in a [google sheet](https://docs.google.com/spreadsheets/d/1Mowarnq_wI0UWxYWthrpCbcfCOHv8Y8sgeL_n_OwdQE/edit?gid=563300356#gid=563300356) and used to suppliment journal data.
 
 ## Watch the video
 
