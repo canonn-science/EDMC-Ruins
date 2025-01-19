@@ -1,6 +1,8 @@
 # EDMC-Ruins
 A plugin to report ruin types
 
+THIS IS NOW OBSOLETE. WE WILL BE UPDATING IT TO SEND THE DATA ELSEWHERE
+
 # How it works
 
 When you approach one of the Guardian Ancient Ruins site the user interface will appear.
